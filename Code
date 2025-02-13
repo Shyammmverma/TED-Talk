@@ -1,0 +1,21 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from textblob import TextBlob
+
+# Sample TED Talks dataset
+data = {'transcript': ["TED Talks are inspiring and full of knowledge.",
+                        "This talk was boring and not insightful.",
+                        "An amazing and thought-provoking session!"]}
+df = pd.DataFrame(data)
+
+# Apply TextBlob Sentiment Analysis
+df['sentiment'] = df['transcript'].apply(lambda x: TextBlob(x).sentiment.polarity)
+
+# Plot Sentiment Distribution
+plt.figure(figsize=(8,5))
+sns.histplot(df['sentiment'], bins=20, kde=True, color="blue")
+plt.xlabel("Sentiment Score")
+plt.ylabel("Number of Talks")
+plt.title("Sentiment Analysis of TED Talks")
+plt.show()
